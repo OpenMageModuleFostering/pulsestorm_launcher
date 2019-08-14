@@ -108,7 +108,7 @@ class Pulsestorm_Launcher_Model_Observer
         
         $url = Mage::getModel('adminhtml/url');
         $search = new stdClass();
-        $search->url = $url->getUrl('adminhtml/index/globalSearch');
+        $search->url = $url->getUrl('adminhtml/pulsestorm_launcher/globalSearch');
         $search = Mage::helper('core')->jsonEncode($search);
         
         $block              = $layout->createBlock('adminhtml/template')
@@ -181,7 +181,10 @@ class Pulsestorm_Launcher_Model_Observer
 	
     protected function _shouldBail($controller)
     {
-        return strpos($controller->getFullActionName(), 'adminhtml_') !== 0 ||
+        // Ensure the layout area is 'adminhtml' because the CMS preview uses 'frontend',
+        // and since the frontend page has a different breadcrumbs block, we'll get an exception.
+        return $controller->getLayout()->getArea() !== 'adminhtml' ||
+        strpos($controller->getFullActionName(), 'adminhtml_') !== 0 ||
         $controller->getRequest()->isAjax();
     }
     
