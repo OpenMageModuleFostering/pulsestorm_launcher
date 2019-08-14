@@ -19,6 +19,8 @@ class Pulsestorm_Launcher_Model_Observer
             return;
         }
         
+        $this->_addBreadcrumbsIfNotThere($observer);
+        
         $this->_addExtraFrontendFiles($controller);
 
         $json = $this->_renderDefaultNavigationJson($controller);
@@ -146,6 +148,36 @@ class Pulsestorm_Launcher_Model_Observer
         }
     }
     
+	protected function _addBreadcrumbsIfNotThere($observer)
+	{
+
+	    $controller = $observer->getAction();
+        
+	    if(!$controller)
+	    {
+	        return;
+	    }                
+        
+	    $layout = $controller->getLayout();
+
+	    $breadcrumbs = $layout->getBlock('breadcrumbs');	    
+
+	    if($breadcrumbs)
+	    {
+            return;	        
+	    }
+	    
+        $root  = $layout->getBlock('root');
+        
+        if(!$root)
+        {
+            return;
+        }
+
+        $block = $layout->createBlock('pulsestorm_launcher/breadcrumbs', 'breadcrumbs');
+        $root->insert($block);        
+	}
+	
     protected function _shouldBail($controller)
     {
         return strpos($controller->getFullActionName(), 'adminhtml_') !== 0 ||
