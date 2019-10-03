@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Pulsestorm_Launcher",
+    "name": "OpenMageModuleFostering\/Pulsestorm_Launcher",
     "type": "magento-module",
     "license": "MIT",
     "homepage": "",
     "description": "Provides navigation shortcuts for the admin console's navigation and gloal search",
     "authors": [
-    {
-        "name": "Alan Storm",
-        "email": "astorm@alanstorm.com"
-    }
-],
+        {
+            "name": "Alan Storm",
+            "email": "astorm@alanstorm.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
